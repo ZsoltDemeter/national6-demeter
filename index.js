@@ -16,9 +16,9 @@ function handleFetchResponse(response){
     return response.json();
 }
 
-function useJSONResponse(json){
-    //console.log(json);
-    renderArticles(json);
+function useJSONResponse(index){
+    //console.log(index);
+    renderArticles(index);
 }
 
 function renderArticles(articleList){
