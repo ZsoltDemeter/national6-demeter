@@ -31,7 +31,7 @@ function renderArticles(articleList){
 
 const articleListHtml = document.querySelector(".article-list");
 
-function renderArticle(articleData){
+function renderArticle(data){
     const article = document.createElement("div");
     const articleTitle = document.createElement("h3");
     const articleContent = document.createElement("p");
@@ -41,6 +41,6 @@ function renderArticle(articleData){
 
     articleListHtml.appendChild(article);
 
-    articleTitle.innerText = articleData.title;
-    articleContent.innerText = articleData.content;
+    articleTitle.innerText = data.title;
+    articleContent.innerText = data.content;
 }
