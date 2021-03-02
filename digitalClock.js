@@ -9,16 +9,22 @@ let minutesParagraph = document.querySelectorAll(".minutes p");
 let hoursParagraph = document.querySelectorAll(".hours p");
 
 let varTimer;
+let start = false;
 
 document.getElementById("start").addEventListener("click",function(){
-    varTimer = setInterval(myTimer,500);
+    if(!start){
+        varTimer = setInterval(myTimer,500);
+    }
+    start = true;
 })
 
 document.getElementById("stop").addEventListener("click",function(){
     clearInterval(varTimer);
+    start = false;
 })
 
 document.getElementById("reset").addEventListener("click",function(){
+    start = false;
     clearInterval(varTimer);
     seconds = 0;
     minutes = 0;
