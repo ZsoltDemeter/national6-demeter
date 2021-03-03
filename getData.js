@@ -1,15 +1,13 @@
 console.log("Javascript - AJAX");
+console.log("Crud Operation - Read")
 
 //console.log("before fetch");
 
-document.getElementById("get-data").addEventListener("click",function(){
+document.getElementById("get-data").addEventListener("click",getData);
 
-    //console.log("before fetch");
-
+function getData(){
     fetch("https://simple-json-server-scit.herokuapp.com/posts").then(handleFetchResponse).then(useJSONResponse);
-
-    //console.log("after fetch");
-});
+}
 
 function handleFetchResponse(response){
     //console.log("response",response);
