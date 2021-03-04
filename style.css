@@ -6,10 +6,20 @@ html{
 body{
     height: 100%;
     width: 100%;
-}
+} 
 
 .digital-clock{
     display: flex;
+    font-size: 900%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+    height: 920px;
+   
 }
 
 .digital-clock > div{
@@ -18,4 +28,45 @@ body{
 
 .buttons{
     display: flex;
+    position: absolute;
+    top: 31%;
+    left: 41%;
+    padding: 0.1px;
+}
+#start,
+#stop,
+#save,
+#reset{
+    padding:0.35em 1.2em;
+    border:0.1em solid black    ;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:black;
+    text-align:center;
+    transition: all 0.2s;
+}
+#start:hover,
+#stop:hover,
+#save:hover,
+#reset:hover{  
+background-color: white;
+}
+
+.saved-times > p{
+    display: flex;
+}
+
+.saved-times > div{
+    display: flex;
+    height: 50px;
+}
+
+.saved-times{
+    font-size: 300%;
+    margin-top: 250px;
+    margin-left: 44%;
 }

@@ -13,7 +13,7 @@ let start = false;
 
 document.getElementById("start").addEventListener("click",function(){
     if(!start){
-        varTimer = setInterval(myTimer,500);
+        varTimer = setInterval(myTimer,400);
     }
     start = true;
 })
@@ -41,11 +41,41 @@ document.getElementById("reset").addEventListener("click",function(){
 })
 
 document.getElementById("save").addEventListener("click",function(){
-    clearInterval(varTimer);
+    
+    let savedHours = document.createElement("p");
+    let savedMinutes = document.createElement("p");
+    let savedSeconds = document.createElement("p");
 
-    const savedTime = document.createElement("p");
+    const savedTime = document.createElement("div");
     document.querySelector(".saved-times").appendChild(savedTime);
 
+    savedTime.appendChild(savedHours);
+    savedTime.appendChild(savedMinutes);
+    savedTime.appendChild(savedSeconds);
+
+    savedHoursString = hours +"";
+    savedMinutesString = minutes +"";
+    if(seconds === 0){
+        savedSecondsString = "0";
+    }else{
+        savedSecondsString = (seconds - 1) + "";
+    }
+    
+    if(savedSecondsString.split("").length < 2){
+        savedSecondsString = "0"+savedSecondsString;
+    }
+    if(savedMinutesString.split("").length < 2){
+        savedMinutesString = "0"+savedMinutesString;
+    }
+    if(savedHoursString.split("").length < 2){
+        savedHoursString = "0"+savedHoursString;
+    }
+
+    savedHours.innerText = savedHoursString+":";
+    savedMinutes.innerText = savedMinutesString+":";
+    savedSeconds.innerText = savedSecondsString;
+
+    // console.log(savedHoursString+":"+savedMinutesString+":"+savedSecondsString);
 })
 
 
