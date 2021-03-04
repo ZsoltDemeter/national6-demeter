@@ -33,12 +33,19 @@ function renderArticle(data){
     const article = document.createElement("div");
     const articleTitle = document.createElement("h3");
     const articleContent = document.createElement("p");
+    const removeButton = document.createElement("button");
+
+    removeButton.addEventListener("click",function(){
+        article.remove();
+    });
 
     article.appendChild(articleTitle);
     article.appendChild(articleContent);
+    article.appendChild(removeButton);
 
     articleListHtml.appendChild(article);
 
     articleTitle.innerText = data.title;
     articleContent.innerText = data.content;
+    removeButton.innerText = "Remove";
 }
