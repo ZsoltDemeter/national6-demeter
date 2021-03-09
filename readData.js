@@ -6,7 +6,7 @@ document.getElementById("get-data").addEventListener("click",function(){
 
     //console.log("before fetch");
 
-    fetch("https://simple-json-server-scit.herokuapp.com/posts").then(handleFetchResponse).then(useJSONResponse);
+    fetch("https://simple-json-server-scit.herokuapp.com/comments").then(handleFetchResponse).then(useJSONResponse);
 
     //console.log("after fetch");
 });
