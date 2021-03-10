@@ -2,22 +2,17 @@ console.log("Javascript - AJAX");
 
 //console.log("before fetch");
 
-document.getElementById("get-data").addEventListener("click",function(){
+document.getElementById("get-data").addEventListener("click",getData);
 
-    //console.log("before fetch");
-
-    fetch("https://simple-json-server-scit.herokuapp.com/comments").then(handleFetchResponse).then(useJSONResponse);
-
-    //console.log("after fetch");
-});
+function getData(){
+    fetch("https://simple-json-server-scit.herokuapp.com/posts").then(handleFetchResponse).then(useJSONResponse);
+}
 
 function handleFetchResponse(response){
-    //console.log("response",response);
     return response.json();
 }
 
 function useJSONResponse(index){
-    //console.log(index);
     renderArticles(index);
 }
 
@@ -31,7 +26,7 @@ function renderArticles(articleList){
 
 const articleListHtml = document.querySelector(".article-list");
 
-function renderArticle(data){
+function renderArticle(articleData){
     const article = document.createElement("div");
     const articleTitle = document.createElement("h3");
     const articleContent = document.createElement("p");
@@ -41,6 +36,22 @@ function renderArticle(data){
 
     articleListHtml.appendChild(article);
 
-    articleTitle.innerText = data.title;
-    articleContent.innerText = data.content;
+    articleTitle.innerText = articleData.title;
+    articleContent.innerText = articleData.content;
+
+    fetch(`https://simple-json-server-scit.herokuapp.com/comments?postId=${articleData.postId}`);
+    
+    const commentsList = document.createElement("div");
+    const comments = document.createElement("div");
+    const user = document.createElement("h4");
+    const userComment = document.createElement("p");
+
+    article.appendChild(commentsList);
+    commentsList.appendChild(comments);
+    comments.appendChild(user);
+    comments.appendChild(userComment);
+
+    user.innerText = articleData.username;
+    userComment.innerText = articleData.content;
+          
 }
