@@ -11,6 +11,18 @@ function renderToDoList(toDoList){
     }
 }
 
-function renderTask(task){
-    
+const taskListHtml = document.querySelector(".task-list");
+
+function renderTask(taskData){
+    const task = document.createElement("div");
+    task.classList.add("task-class");
+    const checkBox = document.createElement("input");
+    checkbox.type = "checkbox";
+    const taskName = document.createElement("h4");
+    const removeTaskButton = document.createElement("div");
+
+    taskListHtml.appendChild(task);
+    task.appendChild(checkBox);
+    task.appendChild(taskName);
+    task.appendChild(removeTaskButton);
 }

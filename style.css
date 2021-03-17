@@ -1,0 +1,31 @@
+.plus{
+    color: palevioletred;
+    font-size: 32px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.header{
+    background: palevioletred;
+    height: 50px;
+}
+
+.header h3{
+    color: white;
+    text-align: justify;
+    margin-top: 10px;
+    padding-top: 12px;
+}
+
+.add-item{
+    padding-top: 10px;
+    align-items: center;
+    display: flex;
+}
+
+.task-class{
+    display: flex;
+}
+
+
