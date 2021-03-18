@@ -1,10 +1,7 @@
 console.log("To-Do app homework.");
 
 document.getElementById("post").addEventListener("click",postData);
-document.getElementsByClassName("remove-class").addEventListener("click",putData);
-
-
-
+/////////////////////////////////////////////////////////////////////////
 function postData(){
 
     const payload = {
@@ -26,6 +23,7 @@ function postData(){
 }).then(getData);
 }
 
+//////////////////////////////////////////////////////////////////////////
 function putData(){
     const payload = {
        
@@ -43,7 +41,7 @@ function putData(){
 function getData(){
     fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`).then((r) => r.json()).then(renderToDoList);
 }
-
+///////////////////////////////////////////////////////////////////////////
 
 function renderToDoList(toDoList){
     for(const task of toDoList){
@@ -59,7 +57,7 @@ function renderTask(taskData){
     const task = document.createElement("div");
     task.classList.add("task-class");
     const checkBox = document.createElement("input");
-    checkbox.type = "checkbox";
+    checkBox.type = "checkbox";
     const taskName = document.createElement("h4");
     const removeTaskButton = document.createElement("img");
     removeTaskButton.classList.add("remove-class");
@@ -70,5 +68,8 @@ function renderTask(taskData){
     task.appendChild(taskName);
     task.appendChild(removeTaskButton);
 
+    removeTaskButton.addEventListener("click",putData);
 
+    taskName.innerText = taskData.item;
+    checkBox.checked = taskData.checked;
 }
