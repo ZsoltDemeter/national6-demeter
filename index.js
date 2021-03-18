@@ -1,4 +1,5 @@
 console.log("To-Do app homework.");
+getData();
 
 document.getElementById("post").addEventListener("click",postData);
 /////////////////////////////////////////////////////////////////////////
