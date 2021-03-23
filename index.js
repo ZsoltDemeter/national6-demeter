@@ -2,7 +2,7 @@ console.log("To-Do app homework.");
 getData();
 
 document.getElementById("post").addEventListener("click",postData);
-/////////////////////////////////////////////////////////////////////////
+
 function postData(){
 
     const payload = {
@@ -24,7 +24,6 @@ function postData(){
 }).then(getData);
 }
 
-//////////////////////////////////////////////////////////////////////////
 function putData(){
     const payload = {
       
@@ -45,7 +44,6 @@ function putData(){
 function getData(){
     fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`).then((r) => r.json()).then(renderToDoList);
 }
-///////////////////////////////////////////////////////////////////////////
 
 function renderToDoList(toDoList){
     for(const task of toDoList){
