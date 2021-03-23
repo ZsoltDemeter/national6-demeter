@@ -6,6 +6,11 @@
     outline: none;
 }
 
+#post:hover{
+    color: rgb(17, 104, 17);
+    
+}
+
 .header{
     background: palevioletred;
     height: 50px;

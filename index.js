@@ -27,7 +27,10 @@ function postData(){
 //////////////////////////////////////////////////////////////////////////
 function putData(){
     const payload = {
-      //??
+      
+        checked: false,
+        item: inputField
+      }
     }
 
     fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`, {
@@ -37,7 +40,7 @@ function putData(){
     },
   body: JSON.stringify(payload)
 }).then(getData);
-}
+
 
 function getData(){
     fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`).then((r) => r.json()).then(renderToDoList);
