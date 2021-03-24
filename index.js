@@ -1,38 +1,33 @@
 console.log("To-Do app homework.");
-getData();
-
-document.getElementById("post").addEventListener("click",postData);
+postData();
 
 function postData(){
+  let payload = {
+    id:"zsdemeter",
+    todo:[]
+  };
 
-    const payload = {
-        id: "zsdemeter",
-        todo:[
-          {
-            checked: false,
-            item: inputField
-          },
-       ]
-    }
+  fetch('https://simple-json-server-scit.herokuapp.com/todo', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+            },
+        body: JSON.stringify(payload)
+    }).then(getData);
 
-    fetch('https://simple-json-server-scit.herokuapp.com/todo', {
-  method: "POST",
-  headers: {
-      'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(payload)
-}).then(getData);
 }
 
+document.getElementById("put-task").addEventListener("click",putData);
+document.querySelector(".remove-class").addEventListener("click",removeData);
+
 function putData(){
-    const payload = {
-      
+    let payload = {
         checked: false,
         item: inputField
       }
     }
 
-    fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`, {
+  fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
   method: "PUT",
   headers: {
       'Content-Type': 'application/json'
@@ -40,9 +35,12 @@ function putData(){
   body: JSON.stringify(payload)
 }).then(getData);
 
+function removeData(){
+
+}
 
 function getData(){
-    fetch(`https://simple-json-server-scit.herokuapp.com/todo/${user}`).then((r) => r.json()).then(renderToDoList);
+    fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter").then((r) => r.json()).then(renderToDoList).catch(()=>{});
 }
 
 function renderToDoList(toDoList){
