@@ -2,7 +2,7 @@ console.log("Spaceship Generator Homework");
 
 let spaceship;
 let spaceshipArray =[];
-let selectedAny = false;
+
 const spaceshipList = document.getElementById("spaceship-list");
 const imageArray = ["Images/blue-spaceship.png","Images/boring-spaceship.png","Images/green-spaceship.png","Images/orange-spaceship.png","Images/pewpew-spaceship.png","Images/red-spaceship.png","Images/x-wing.png"];
 
@@ -11,16 +11,14 @@ document.getElementById("generate-starship").addEventListener("click", ()=>{
     spaceshipArray.push(spaceship);
     
     for (const spaceship of spaceshipArray) {
-        spaceship.enabled = false;
         spaceship.selected = false;
-        spaceshipArray[spaceshipArray.length - 1].enabled = true;
+        spaceshipArray[spaceshipArray.length - 1].selected = true;
     }
 });
 
 class Spaceship{
     constructor(){
        this.selected = false;
-       this.enabled = false;
        this.x = 0;
        this.y = 0;
        this.generateHtmlRef();
@@ -45,7 +43,7 @@ class Spaceship{
         this.ref.addEventListener("click", () =>{
             for (const spaceship of spaceshipArray) {
                 spaceship.selected = false;
-                spaceship.enabled = false;
+                // spaceship.enabled = false;
             }
             this.selected = true;
         })
@@ -53,14 +51,13 @@ class Spaceship{
 
     setMoveSpaceship(){
         document.addEventListener("keydown",(event)=>{
-               if(this.enabled === true || this.selected === true) this.moveSpaceship(event.key);
+               if(this.selected === true) this.moveSpaceship(event.key);        
         });
     }
     
     moveSpaceship(action){
         if(action === "ArrowRight"){
             this.move(this.x + 5,this.y);
-            //this.style.transform = "rotate(90deg)";
         }else if(action === "ArrowLeft"){
             this.move(this.x - 5,this.y);
         }else if(action === "ArrowUp"){
