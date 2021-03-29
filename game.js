@@ -139,6 +139,14 @@ function collisionDetection(player, obstacles) {
 const player = new Player();
 const obstacleFactory = new ObstacleFactory();
 
+//Lives count
+
+const heart1 = document.getElementById("heart1");
+const heart2 = document.getElementById("heart2");
+const heart3 = document.getElementById("heart3");
+
+const livesArray = [heart1,heart2,heart3];
+
 // Game Loop
 let count = 0;
 
@@ -160,3 +168,5 @@ let gameLoop = setInterval(() => {
   obstacleFactory.destroyObstacles();
   count++;
 }, 50);
+
+

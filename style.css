@@ -17,3 +17,13 @@ body{
     position: relative;
     overflow: hidden;
 }
+
+img{
+    height: 30px;
+    width: 30px;
+}
+
+.lives{
+    position: absolute;
+    top: 97px;
+}
