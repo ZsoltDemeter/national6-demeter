@@ -160,8 +160,13 @@ let gameLoop = setInterval(() => {
 
   obstacleFactory.moveObstacles();
   if (collisionDetection(player, obstacleFactory.obstacles)) {
+    livesArray[livesArray.length-1].style.display = "none";
+    livesArray.pop();
+  }
+
+  if(livesArray.length === 0){
+    alert("You died :( ");
     clearInterval(gameLoop);
-    alert("You hit an obstacle");
     window.location = "/";
   }
 
