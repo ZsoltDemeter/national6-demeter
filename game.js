@@ -1,5 +1,7 @@
 console.log("OOP Game");
 
+let playerSpeed = 15;
+
 class GameObject {
   constructor() {
     this.width = 50;
@@ -39,13 +41,15 @@ class Player extends GameObject {
   }
 
   moveUp() {
-    if(this.y - 25 >= 0)
-    this.move(this.x, this.y - 25);
+    if(this.y - playerSpeed >= 0)
+    this.move(this.x, this.y - playerSpeed);
+    console.log(this.y);
   }
 
   moveDown() {
-    if(this.y + 25 <= 500 - this.height )
-    this.move(this.x, this.y + 25);
+    if(this.y + playerSpeed <= 500 - this.height )
+    this.move(this.x, this.y + playerSpeed);
+    console.log(this.y);
   }
 }
 
@@ -118,19 +122,16 @@ document.addEventListener("keyup", (event) => {
 
 function collisionDetection(player, obstacles) {
   for (const obstacle of obstacles) {
-    console.log(player.x, player.x + player.width, obstacle.x);
+    if( player.x < obstacle.x + obstacle.width &&
+        player.x + player.width > obstacle.x &&
+        player.y < obstacle.y + obstacle.height &&
+        player.y + player.height > obstacle.y){
 
-    if (
-      (player.x <= obstacle.x &&
-        obstacle.x <= player.x + player.width &&
-        player.y <= obstacle.y &&
-        obstacle.y <= player.y + player.height) ||
-      (player.x <= obstacle.x + obstacle.width &&
-        obstacle.x + obstacle.width <= player.x + player.width &&
-        player.y <= obstacle.y + obstacle.height &&
-        obstacle.y + obstacle.height <= player.y + player.height)
-    )
+      delete obstacle.width;   
+      delete obstacle.height; 
+      obstacle.removeRef();  
       return true;
+    }  
   }
 
   return false;
@@ -151,7 +152,6 @@ const livesArray = [heart1,heart2,heart3];
 let count = 0;
 
 let gameLoop = setInterval(() => {
-  console.log(keyUpPress);
 
   if (keyUpPress) player.moveUp();
   if (keyDownPress) player.moveDown();
@@ -173,5 +173,4 @@ let gameLoop = setInterval(() => {
   obstacleFactory.destroyObstacles();
   count++;
 }, 50);
-
 
