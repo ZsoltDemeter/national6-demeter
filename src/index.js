@@ -33,13 +33,12 @@ document.getElementById("add-task-button").addEventListener("click", () => {
 
       updateUserData(todo, () => {
         getToDoData((data) => {
-            console.log(data);
-        
-              todo = data.todo;
+          console.log(data);
 
-              createToDoItemList(todo);
-            
-          });
+          todo = data.todo;
+
+          createToDoItemList(todo);
+        });
       });
     }
   } else {
@@ -48,11 +47,10 @@ document.getElementById("add-task-button").addEventListener("click", () => {
     if (itemValue) {
       createUserData(itemValue, () => {
         getToDoData((data) => {
-            console.log(data);
-              todo = data.todo;
-              createToDoItemList(todo);
-            
-          });
+          console.log(data);
+          todo = data.todo;
+          createToDoItemList(todo);
+        });
       });
     }
   }
