@@ -1,7 +1,3 @@
-import { changePage, resetPage } from "./local_storage/changePageNumber";
-import { setPage } from "./local_storage/onRefresh";
-import { getBreedList } from "./utils/api";
-
 if (!localStorage.getItem("name") || !localStorage.getItem("password")) {
   window.location = "/login.html";
 }
@@ -29,7 +25,11 @@ if (localStorage.dogName && localStorage.pageNumber) {
   getBreedImage(selectedBreed, number);
 }
 
-getBreedList(createList);
+fetch("https://dog.ceo/api/breeds/list/all")
+  .then((r) => r.json())
+  .then((response) => {
+    createList(response.message);
+  });
 
 function createList(breedList) {
   for (const breed of Object.keys(breedList)) {
@@ -56,29 +56,30 @@ function renderBreed(breed) {
     number = 0;
 
     localStorage.dogName = breed;
+    localStorage.pageNumber = "1";
+    pageNumber.innerText = "1";
+
     selectedBreed = breed;
     breedName.style.textDecoration = "underline";
-
-    resetPage(pageNumber);
-    getBreedImage(selectedBreed, number);
+    getBreedImage(breed, number);
   });
 }
 
 forwardButton.addEventListener("click", () => {
   number++;
-  changePage(number, pageNumber);
+  localStorage.pageNumber = `${number + 1}`;
+  pageNumber.innerText = `${number + 1}`;
   getBreedImage(selectedBreed, number);
 });
 
 backwardButton.addEventListener("click", () => {
   if (number > 0) {
     number--;
-    changePage(number, pageNumber);
+    localStorage.pageNumber = `${number + 1}`;
+    pageNumber.innerText = `${number + 1}`;
     getBreedImage(selectedBreed, number);
   }
 });
-
-//I don't know why but the below function does not work when exported so I will leave it here
 
 async function getBreedImage(breed, number) {
   const response = await fetch(`https://dog.ceo/api/breed/${breed}/images`);
