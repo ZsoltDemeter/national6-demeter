@@ -1,7 +1,7 @@
 import "./ToDoItem.css";
 
 export function ToDoItem(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <div className="to-do-item">
@@ -10,6 +10,7 @@ export function ToDoItem(props) {
       <img
         src="https://www.flaticon.com/svg/vstatic/svg/892/892930.svg?token=exp=1618938206~hmac=b7491265fe8f1f011e746d785487c818"
         alt="trash"
+        onClick={() => props.removeItem(props.label)}
       />
     </div>
   );
