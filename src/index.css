@@ -31,14 +31,19 @@ code {
   height: 500px;
   width: 400px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-field {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .input-field {
   margin-left: 25px;
+  width: 150px;
+  padding: 5px;
 }
