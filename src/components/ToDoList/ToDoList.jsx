@@ -1,25 +1,11 @@
 import { Component } from "react";
 import { ToDoItem } from "../ToDoItem/ToDoItem";
 
-const mockToDoListData = [
-  {
-    checked: false,
-    item: "task1",
-  },
-  {
-    checked: true,
-    item: "task2",
-  },
-  {
-    checked: false,
-    item: "task3",
-  },
-];
-
 export class ToDoList extends Component {
   state = {
-    toDoList: mockToDoListData,
+    toDoList: [],
     inputValue: "",
+    shouldCreateUser: false,
   };
 
   removeItem = (itemText) => {
@@ -29,6 +15,25 @@ export class ToDoList extends Component {
       ),
     });
   };
+
+  componentDidMount() {
+    console.log("ToDoList has finished mounting");
+
+    fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter")
+      .then((r) => r.json())
+      .then((json) => {
+        console.log(json);
+        if (json.todo) {
+          this.setState({ toDoList: json.todo });
+        } else {
+          this.setState({ shouldCreateUser: true });
+        }
+      });
+  }
+
+  componentWillUnmount() {
+    console.log("ToDoList will be unmounted");
+  }
 
   handleInputChange = (event) => {
     this.setState({ inputValue: event.target.value });
@@ -42,21 +47,50 @@ export class ToDoList extends Component {
       ],
       inputValue: "",
     });
+
+    const payload = {
+      id: "sradusi",
+      todo: [
+        { checked: false, item: this.state.inputValue },
+        ...this.state.toDoList,
+      ],
+    };
+
+    if (this.state.shouldCreateUser) {
+      fetch("https://simple-json-server-scit.herokuapp.com/todo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      this.setState({ shouldCreateUser: false });
+    } else {
+      fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    }
   };
 
   render() {
+    console.log("ToDoList - render");
     console.log(this.state);
 
     return (
       <div className="to-do-list">
-        {this.state.toDoList.map((itemData) => (
+        {this.state.toDoList.map((itemData, index) => (
           <ToDoItem
-            key={itemData.item}
+            key={index + itemData.item}
             checkValue={itemData.checked}
             label={itemData.item}
             removeItem={this.removeItem}
           />
         ))}
+
         <div className="add-item">
           <input
             value={this.state.inputValue}
