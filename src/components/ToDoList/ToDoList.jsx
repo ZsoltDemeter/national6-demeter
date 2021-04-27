@@ -6,13 +6,55 @@ export class ToDoList extends Component {
     toDoList: [],
     inputValue: "",
     shouldCreateUser: false,
+    isInvalidInput: false,
   };
 
   removeItem = (itemText) => {
+    const filteredToDoList = this.state.toDoList.filter(
+      (itemData) => itemData.item !== itemText
+    );
     this.setState({
-      toDoList: this.state.toDoList.filter(
-        (itemData) => itemData.item !== itemText
-      ),
+      toDoList: filteredToDoList,
+    });
+
+    const payload = {
+      id: "zsdemeter",
+      todo: filteredToDoList,
+    };
+
+    fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  };
+
+  updateCheckStatus = (index, value) => {
+    console.log(index, value);
+
+    const newList = this.state.toDoList.map((item, itemIndex) => {
+      if (itemIndex === index) {
+        item.checked = value;
+      }
+
+      return item;
+    });
+
+    this.setState({ toDoList: newList });
+
+    const payload = {
+      id: "zsdemeter",
+      todo: newList,
+    };
+
+    fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
   };
 
@@ -36,43 +78,47 @@ export class ToDoList extends Component {
   }
 
   handleInputChange = (event) => {
-    this.setState({ inputValue: event.target.value });
+    this.setState({ inputValue: event.target.value, isInvalidInput: false });
   };
 
   handleAddItem = () => {
-    this.setState({
-      toDoList: [
-        { checked: false, item: this.state.inputValue },
-        ...this.state.toDoList,
-      ],
-      inputValue: "",
-    });
-
-    const payload = {
-      id: "sradusi",
-      todo: [
-        { checked: false, item: this.state.inputValue },
-        ...this.state.toDoList,
-      ],
-    };
-
-    if (this.state.shouldCreateUser) {
-      fetch("https://simple-json-server-scit.herokuapp.com/todo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      this.setState({ shouldCreateUser: false });
+    if (this.state.inputValue === "") {
+      this.setState({ isInvalidInput: true });
     } else {
-      fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      this.setState({
+        toDoList: [
+          { checked: false, item: this.state.inputValue },
+          ...this.state.toDoList,
+        ],
+        inputValue: "",
       });
+
+      const payload = {
+        id: "zsdemeter",
+        todo: [
+          { checked: false, item: this.state.inputValue },
+          ...this.state.toDoList,
+        ],
+      };
+
+      if (this.state.shouldCreateUser) {
+        fetch("https://simple-json-server-scit.herokuapp.com/todo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        this.setState({ shouldCreateUser: false });
+      } else {
+        fetch("https://simple-json-server-scit.herokuapp.com/todo/zsdemeter", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+      }
     }
   };
 
@@ -88,6 +134,8 @@ export class ToDoList extends Component {
             checkValue={itemData.checked}
             label={itemData.item}
             removeItem={this.removeItem}
+            itemIndex={index}
+            updateCheckStatus={this.updateCheckStatus}
           />
         ))}
 
@@ -95,8 +143,13 @@ export class ToDoList extends Component {
           <input
             value={this.state.inputValue}
             onChange={this.handleInputChange}
+            style={{
+              border: this.state.isInvalidInput ? "3px solid red" : undefined,
+            }}
           />
-          <button onClick={this.handleAddItem}>+</button>
+          <button onClick={!this.isInvalidInput && this.handleAddItem}>
+            +
+          </button>
         </div>
       </div>
     );
