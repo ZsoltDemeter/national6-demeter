@@ -1,10 +1,8 @@
-import React from "react";
-
-function FormField({ title }) {
+function FormField({ title, className, onChange }) {
   return (
     <div className="form-field">
       <h4>{title}</h4>
-      <input className="input-field" />
+      <input className={`input-field ${className}`} onChange={onChange} />
     </div>
   );
 }
