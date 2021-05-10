@@ -5,6 +5,7 @@
 
 .to-do-item img {
   height: 20px;
+  cursor: pointer;
 }
 
 .to-do-item > * {
