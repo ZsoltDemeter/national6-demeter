@@ -1,8 +1,6 @@
 import "./ToDoItem.css";
 
 export function ToDoItem(props) {
-  // console.log(props);
-
   return (
     <div className="to-do-item">
       <input
